@@ -18,4 +18,5 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.smarttab = true
 
+vim.opt.scrolloff = 8
 
