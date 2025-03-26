@@ -116,13 +116,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 eval $(ssh-agent)
-ssh-add ~/.ssh/6_12_24_rsa
+ssh-add ~/.ssh/id_ed25519
 clear
 
-alias vim='nvim'
 #source ~/myenv/bin/activate
+
+alias vim='nvim'
 
 alias py='python3 ~/pythonfive.py'
 
+alias ls='ls -ltr'
+
+alias npms='nohup npm start > /dev/null 2>&1 & disown'
+alias npmk='killall node'
