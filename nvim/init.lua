@@ -169,6 +169,6 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
-vim.opt.timeoutlen = 30
+vim.opt.timeoutlen = 500
 vim.opt.ttimeoutlen = 5
 
