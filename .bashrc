@@ -132,4 +132,6 @@ alias npms='nohup npm start > /dev/null 2>&1 & disown'
 alias npmk='killall node'
 
 setxkbmap -option caps:escape
+xmodmap -e "keycode 9 ="
+
 
