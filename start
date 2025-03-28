@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Optional directory to cd into
+DIR="${1:-$PWD}"
+SESSION="triple"
+
+# Start new tmux session detached
+tmux new-session -d -s "$SESSION" -c "$DIR"
+
+# Split the window into left and right
+tmux split-window -h -c "$DIR" -t "$SESSION"
+
+# Now split the right pane (which is pane 1) into top and bottom
+tmux split-window -v -c "$DIR" -t "$SESSION:0.1"
+
+# Select the left pane (pane 0) by default
+tmux select-pane -t "$SESSION:0.0"
+
+# Attach to the session
+tmux attach-session -t "$SESSION"
+
