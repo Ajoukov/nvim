@@ -138,6 +138,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sasha/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  vimtex = {
+    loaded = true,
+    path = "/home/sasha/.local/share/nvim/site/pack/packer/start/vimtex",
+    url = "https://github.com/lervag/vimtex"
   }
 }
 

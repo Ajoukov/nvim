@@ -3,5 +3,9 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 
 ln -sf . ~/.config/nvim
 
+requires sudo apt install latexmk
+requires sudo apt install texlive-latex-extra
+requires sudo apt install zathura zathura-pdf-poppler
+
 open nvim and run `:PackerSync` anywhere
 

@@ -52,6 +52,9 @@ require("packer").startup(function(use)
   use "saadparwaiz1/cmp_luasnip"
   use "hrsh7th/cmp-buffer"
   use "hrsh7th/cmp-path"
+
+  use { 'lervag/vimtex', tag = 'v2.15' }
+
 end)
 
 -- Telescope keymaps
@@ -171,4 +174,34 @@ vim.opt.expandtab = true
 
 vim.opt.timeoutlen = 500
 vim.opt.ttimeoutlen = 5
+
+-- Set your preferred PDF viewer. For example, if you are on Linux:
+vim.g.vimtex_view_method = "zathura"
+-- If you are on macOS, you might use:
+-- vim.g.vimtex_view_method = "skim"
+
+-- vimtex uses latexmk by default. You can customize its options:
+vim.g.vimtex_compiler_latexmk = {
+  options = {
+    "-pdf",               -- compile to PDF
+    "-pvc",               -- preview continuously (auto-update)
+    "-interaction=nonstopmode",
+    "-synctex=1",
+  },
+}
+
+vim.g.vimtex_mappings_enabled = 0
+-- Set leader to space (if not already set)
+vim.g.mapleader = " "
+
+-- Disable default vimtex mappings
+vim.g.vimtex_mappings_enabled = 0
+
+-- Map <Space>ll to start compilation
+vim.api.nvim_set_keymap("n", "<Space>ll", ":VimtexCompile<CR>", { noremap = true, silent = true })
+
+-- Map <Space>lv to open the PDF viewer
+vim.api.nvim_set_keymap("n", "<Space>lv", ":VimtexView<CR>", { noremap = true, silent = true })
+
+vim.g.vimtex_quickfix_ignore_filters = { "Underfull", "Overfull", "Warning:" }
 
