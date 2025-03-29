@@ -47,17 +47,19 @@ else
     history_text=""
 fi
 
-if [[ "$#" -gt 0 ]]; then
-    if [[ "$1" != -* ]]; then
-        prompt="$*"
+# If STDIN is piped, read it. Then, if command-line arguments are provided, append them.
+if [ ! -t 0 ]; then
+    stdin_text=$(cat -)
+    if [ "$#" -gt 0 ]; then
+         prompt="${stdin_text}\n$*"
     else
-        prompt=""
+         prompt="${stdin_text}"
     fi
 else
-    if [ -t 0 ]; then
-        read -e -p "Welcome to chatgpt. Type your prompt: " prompt
+    if [ "$#" -gt 0 ]; then
+         prompt="$*"
     else
-        prompt=$(cat -)
+         read -e -p "Welcome to chatgpt. Type your prompt: " prompt
     fi
 fi
 
