@@ -77,6 +77,8 @@ fi
 
 [ -z "$prompt" ] && { echo "No prompt provided."; exit 0; }
 
+prompt="$prompt IMPORTANT: You must print a newline in your response every 70 characters. My computer will crash if you dont do this."
+
 system_message="$SYSTEM_PROMPT"
 if [ -n "$history_text" ]; then
     system_message="$system_message\nConversation History:\n$history_text"
