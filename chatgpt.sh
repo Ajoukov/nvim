@@ -8,7 +8,7 @@ PROCESSING_LABEL="\n\033[90mProcessing... \033[0m\033[0K\r"
 OVERWRITE_PROCESSING_LINE="             \033[0K\r"
 SYSTEM_PROMPT="You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible. Current date: $(date +%m/%d/%Y). Knowledge cutoff: 9/1/2021."
 OPENAI_KEY="key"
-MODEL="gpt-3.5-turbo"
+MODEL="gpt-4o-mini-2024-07-18"
 TEMPERATURE="0.7"
 MAX_TOKENS="1024"
 SIZE="512x512"
@@ -47,7 +47,19 @@ else
     history_text=""
 fi
 
-# If STDIN is piped, read it. Then, if command-line arguments are provided, append them.
+# Process additional parameters.
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -M)
+	    MODEL="gpt-4.5-preview-2025-02-27"
+            shift
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
 if [ ! -t 0 ]; then
     stdin_text=$(cat -)
     if [ "$#" -gt 0 ]; then
@@ -107,5 +119,4 @@ if [ -n "$CONVERSATION_FILE" ]; then
         echo -e "$timestamp chatgpt: $response_text\n"
     } >> "$CONVERSATION_FILE"
 fi
-
 
