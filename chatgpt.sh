@@ -100,7 +100,6 @@ payload=$(jq -n \
     }')
 
 echo $payload > $CONVERSATION_DIR/.chatgpt_payload
-echo $CONVERSATION_DIR/.chatgpt_payload
 
 response=$(curl https://api.openai.com/v1/chat/completions \
     -sS \
