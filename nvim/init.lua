@@ -114,12 +114,30 @@ end
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
+-- cmp.setup({
+--   mapping = {
+--     ['<Tab>'] = cmp.mapping.select_next_item(),
+--     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+--     ['<S-Space>'] = cmp.mapping.complete(),
+--     ['<S-Space>'] = cmp.mapping.confirm({ select = true }),  -- Shift+Enter to confirm
+--     -- Remove or disable the Enter mapping:
+--     -- ['<CR>'] = cmp.mapping(function(fallback) fallback() end),
+--   },
+--   sources = {
+--     { name = 'nvim_lsp' },
+--     { name = 'luasnip' },
+--     { name = 'buffer' },
+--     { name = 'path' },
+--   }
+-- })
+ 
 cmp.setup({
   mapping = {
     ['<Tab>'] = cmp.mapping.select_next_item(),
     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    -- ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -204,4 +222,5 @@ vim.api.nvim_set_keymap("n", "<Space>ll", ":VimtexCompile<CR>", { noremap = true
 vim.api.nvim_set_keymap("n", "<Space>lv", ":VimtexView<CR>", { noremap = true, silent = true })
 
 vim.g.vimtex_quickfix_ignore_filters = { "Underfull", "Overfull", "Warning:" }
+
 

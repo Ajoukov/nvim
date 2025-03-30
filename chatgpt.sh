@@ -1,14 +1,15 @@
 #!/bin/bash
 set -euo pipefail
 
-GLOBIGNORE="*"
+# GLOBIGNORE="*"
 
 CHATGPT_CYAN_LABEL="\033[36mchatgpt \033[0m"
 PROCESSING_LABEL="\n\033[90mProcessing... \033[0m\033[0K\r"
 OVERWRITE_PROCESSING_LINE="             \033[0K\r"
-SYSTEM_PROMPT="You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible. Current date: $(date +%m/%d/%Y). Knowledge cutoff: 9/1/2021."
+SYSTEM_PROMPT="Answer as concisely as possible. Current date: $(date +%m/%d/%Y). Knowledge cutoff: 9/1/2021."
 OPENAI_KEY="key"
 MODEL="gpt-4o-mini-2024-07-18"
+# MODEL="gpt-3.5-turbo"
 TEMPERATURE="0.7"
 MAX_TOKENS="1024"
 SIZE="512x512"
@@ -18,11 +19,12 @@ mkdir -p "$CONVERSATION_DIR"
 CURRENT_CONVERSATION_FILE="$HOME/.chatgpt_current_conversation"
 
 if [[ "${1:-}" == "-w" ]]; then
-    rm -f "$CONVERSATION_DIR/$2"
+    rm -f "$CONVERSATION_DIR/$2" || echo "Failed to delete"
     echo "Conversation $2 wiped."
     exit 0
 elif [[ "${1:-}" == "-W" ]]; then
-    rm -f "$CONVERSATION_DIR/"*
+    rm -f "$CONVERSATION_DIR/"* || echo "Failed to delete"
+    echo rm -f "$CONVERSATION_DIR/"*
     echo "All conversations wiped."
     exit 0
 fi
@@ -77,13 +79,10 @@ fi
 
 [ -z "$prompt" ] && { echo "No prompt provided."; exit 0; }
 
-prompt="$prompt IMPORTANT: You must print a newline in your response every 70 characters. My computer will crash if you dont do this."
-
 system_message="$SYSTEM_PROMPT"
 if [ -n "$history_text" ]; then
     system_message="$system_message\nConversation History:\n$history_text"
 fi
-
 payload=$(jq -n \
     --arg model "$MODEL" \
     --arg max_tokens "$MAX_TOKENS" \
@@ -100,6 +99,9 @@ payload=$(jq -n \
        temperature: ($temperature | tonumber)
     }')
 
+echo $payload > $CONVERSATION_DIR/.chatgpt_payload
+echo $CONVERSATION_DIR/.chatgpt_payload
+
 response=$(curl https://api.openai.com/v1/chat/completions \
     -sS \
     -H 'Content-Type: application/json' \
@@ -112,7 +114,10 @@ if echo "$response" | jq -e '.error' >/dev/null 2>&1; then
 fi
 
 response_text=$(echo "$response" | jq -r '.choices[].message.content')
-echo -e "${CHATGPT_CYAN_LABEL}$response_text"
+echo -e "${CHATGPT_CYAN_LABEL}$(echo "$response_text" | fold -s -w 60)"
+
+# response_text=$(echo "$response" | jq -r '.choices[].message.content')
+# echo -e "${CHATGPT_CYAN_LABEL}$response_text"
 
 timestamp=$(date +"%Y-%m-%d %H:%M")
 if [ -n "$CONVERSATION_FILE" ]; then
