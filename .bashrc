@@ -131,10 +131,16 @@ alias ls='ls -ltrh'
 alias npms='nohup npm start > /dev/null 2>&1 & disown'
 alias npmk='killall node'
 
+alias dcs='nohup ~/Downloads/Executables/Discord/Discord > /dev/null 2>&1 & disown'
+
+[[ $- != *i* ]] && return
+
 setxkbmap -option caps:escape
-xmodmap -e "keycode 9 ="
 
 alias vimclear='rm -rf ~/.local/state/nvim/swap/*'
 alias pdf='zathura'
+
+alias c='chatgpt2'
+alias xc='xclip -o | chatgpt2'
 
 
