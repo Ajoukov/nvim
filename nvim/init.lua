@@ -223,6 +223,7 @@ vim.api.nvim_set_keymap("n", "<Space>lv", ":VimtexView<CR>", { noremap = true, s
 
 vim.g.vimtex_quickfix_ignore_filters = { "Underfull", "Overfull", "Warning:" }
 
-vim.opt.clipboard = "unnamed"
+vim.api.nvim_set_keymap('v', '*', '"+y:let @* = getreg("+")<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '*', '"+y:let @* = getreg("+")<CR>', { noremap = true, silent = true })
 
 
