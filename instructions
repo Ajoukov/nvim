@@ -9,3 +9,6 @@ requires sudo apt install zathura zathura-pdf-poppler
 
 open nvim and run `:PackerSync` anywhere
 
+dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:swapescape']"
+
+

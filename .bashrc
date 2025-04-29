@@ -154,7 +154,7 @@ alias vimclear='rm -rf ~/.local/state/nvim/swap/*'
 alias c='chatgpt2'
 alias xc='xclip -o | chatgpt2'
 
-setxkbmap -option caps:escape
+# setxkbmap -option caps:escape
 
 alias gs='git status'
 alias ga='git add'
