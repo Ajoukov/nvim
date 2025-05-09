@@ -3,6 +3,8 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 
 ln -sf . ~/.config/nvim
 
+sudo ln -sf zathurarc ~/etc/zathurarc
+
 requires sudo apt install latexmk
 requires sudo apt install texlive-latex-extra
 requires sudo apt install zathura zathura-pdf-poppler
