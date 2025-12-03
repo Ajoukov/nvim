@@ -13,4 +13,6 @@ open nvim and run `:PackerSync` anywhere
 
 dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:swapescape']"
 
+Add this to .bashrc:
+source $HOME/nvim/anj-bashrc
 

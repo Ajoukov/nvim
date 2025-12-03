@@ -11,8 +11,8 @@ export HUGGING_FACE_HUB_TOKEN=""
 alias l='ls -ltrh'
 
 # Neovim if possible
-# alias vim='nvim'
-# alias vimclear='rm -rf ~/.local/state/nvim/swap/*'
+alias vim='nvim'
+alias vimclear='rm -rf ~/.local/state/nvim/swap/*'
 
 # Mongo
 alias mongods='nohup mongod > /dev/null 2>&1 & disown'
