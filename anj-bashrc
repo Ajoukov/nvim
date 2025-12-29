@@ -96,6 +96,14 @@ guA() {
     git config --global user.name  "Alexander Joukov"
     git config --global user.email "Aapteryx@gmail.com"
 }
+# modelizeIT account -> ajoukov@modelizeIT.com
+gum() {
+    export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ecdsa_github_mit -o IdentitiesOnly=yes'
+    eval $(ssh-agent)
+    ssh-add ~/.ssh/id_ecdsa_github_mit
+    git config --global user.name  "Alexander Joukov"
+    git config --global user.email "ajoukov@modelizeIT.com"
+}
 
 # Set volume
 v() {
@@ -117,3 +125,4 @@ mntcrypt() {
 
 alias mr="(make debug -C ~/mgit-tmp/RejuvenApptor/;  ~/mIT/bin/RejuvenApptor-start.sh)"
 alias mg="(make debug -C ~/mgit-tmp/Gatherer/;  ~/mIT/bin/Gatherer-UI.sh; ~/mIT/bin/Gatherer-JobRunner.sh)"
+
