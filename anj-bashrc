@@ -102,3 +102,18 @@ v() {
     pactl set-sink-volume @DEFAULT_SINK@ $@%
 }
 
+# Util
+alias unique='sort | uniq'
+
+# modelizeIT
+alias log='vim $(ls -Art RejuvenApptor* | tail -n 1)'
+alias logg='vim $(ls -Art Gatherer-UI* | tail -n 1)'
+alias logj='vim $(ls -Art Gatherer-JR* | tail -n 1)'
+
+mntcrypt() {
+    sudo cryptsetup luksOpen /dev/sdb cryptroot
+    sudo mount /dev/mapper/cryptroot /mnt/crypt
+}
+
+alias mr="(make debug -C ~/mgit-tmp/RejuvenApptor/;  ~/mIT/bin/RejuvenApptor-start.sh)"
+alias mg="(make debug -C ~/mgit-tmp/Gatherer/;  ~/mIT/bin/Gatherer-UI.sh; ~/mIT/bin/Gatherer-JobRunner.sh)"
