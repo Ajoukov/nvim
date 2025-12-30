@@ -59,9 +59,11 @@ alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
 alias gd='git diff --color'
-alias gb='git branch'
+alias gdh='git diff --color HEAD~'
+alias gb='git branch --color'
 alias gx='git checkout'
-alias gl='git log'
+alias gl='git log --color'
+alias glg='git log --graph --oneline --decorate --all --color'
 
 # Media
 alias png='xdg-open'
