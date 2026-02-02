@@ -11,8 +11,8 @@ export HUGGING_FACE_HUB_TOKEN=""
 alias l='ls -ltrh'
 
 # Neovim if possible
-alias vim='nvim'
-alias vimclear='rm -rf ~/.local/state/nvim/swap/*'
+# alias vim='nvim'
+# alias vimclear='rm -rf ~/.local/state/nvim/swap/*'
 
 # Mongo
 alias mongods='nohup mongod > /dev/null 2>&1 & disown'
@@ -69,9 +69,11 @@ alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
 alias gd='git diff --color'
-alias gb='git branch'
+alias gdh='git diff --color HEAD~'
+alias gb='git branch --color'
 alias gx='git checkout'
-alias gl='git log'
+alias gl='git log --color'
+alias glg='git log --graph --oneline --decorate --all --color'
 
 # Media
 alias png='xdg-open'
@@ -104,9 +106,33 @@ guA() {
     git config --global user.name  "Alexander Joukov"
     git config --global user.email "Aapteryx@gmail.com"
 }
+# modelizeIT account -> ajoukov@modelizeIT.com
+gum() {
+    # export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ecdsa_github_mit -o IdentitiesOnly=yes'
+    # eval $(ssh-agent)
+    # ssh-add ~/.ssh/id_ecdsa_github_mit
+    git config --global user.name  "Alexander Joukov"
+    git config --global user.email "ajoukov@modelizeIT.com"
+}
 
 # Set volume
 v() {
     pactl set-sink-volume @DEFAULT_SINK@ $@%
 }
+
+# Util
+alias unique='sort | uniq'
+
+# modelizeIT
+alias log='vim $(ls -Art RejuvenApptor* | tail -n 1)'
+alias logg='vim $(ls -Art Gatherer-UI* | tail -n 1)'
+alias logj='vim $(ls -Art Gatherer-JR* | tail -n 1)'
+
+mntcrypt() {
+    sudo cryptsetup luksOpen /dev/sdb cryptroot
+    sudo mount /dev/mapper/cryptroot /mnt/crypt
+}
+
+alias mr="(make debug -C ~/mgit-tmp/RejuvenApptor/;  ~/mIT/bin/RejuvenApptor-start.sh)"
+alias mg="(make debug -C ~/mgit-tmp/Gatherer/;  ~/mIT/bin/Gatherer-UI.sh; ~/mIT/bin/Gatherer-JobRunner.sh)"
 
