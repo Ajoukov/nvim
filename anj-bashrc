@@ -28,6 +28,16 @@ alias npmk='killall node'
 alias dockerkill='sudo docker stop $(sudo docker ps -a -q)'
 alias dockerrm='sudo docker rm $(sudo docker ps -a -q)'
 
+# VM
+vms() {
+    vm_name=$1
+    VBoxManage startvm "$vm_name" --type headless
+}
+vmk() {
+    vm_name=$1
+    VBoxManage controlvm "$vm_name" acpipowerbutton
+}
+
 # K8s
 kr() {
     job=$1
@@ -50,7 +60,7 @@ dcsi() {
 }
 
 # Cursor
-alias cursor='nohup ~/Executables/Cursor/AppRun > /dev/null 2>&1 & disown'
+# alias cursor='nohup ~/Executables/Cursor/AppRun > /dev/null 2>&1 & disown'
 
 # Git
 alias gsh='git stash'
