@@ -64,6 +64,33 @@ alias gb='git branch --color'
 alias gx='git checkout'
 alias gl='git log --color'
 alias glg='git log --graph --oneline --decorate --all --color'
+# alias gdv='git difftool -y -t vimdiff -- '
+# function gdv() { vimdiff <(git show HEAD:"$1") "$1"; }
+function gdv() {
+  [ $# -eq 1 ] || { echo "usage: gdv <path>" >&2; return 2; }
+  f=$1
+  tmp="$(mktemp "${TMPDIR:-/tmp}/gdv.XXXXXX")" || return 1
+  trap 'rm -f "$tmp"' EXIT INT TERM
+  git show "HEAD:$f" >"$tmp" || return 1
+
+  vim -d "$tmp" "$f" \
+    -c 'wincmd h | setl ro noma' \
+    -c 'wincmd l | setl noro ma'
+}
+
+
+# function gdv() {
+#   [ $# -ge 1 ] || { echo "usage: gdv <path> [<path> ...]" >&2; return 2; }
+#   local f
+#   for f in "$@"; do
+#     (
+#       tmp="$(mktemp "${TMPDIR:-/tmp}/gdv.XXXXXX")" || exit 1
+#       trap 'rm -f "$tmp"' EXIT INT TERM
+#       git show "HEAD:$f" >"$tmp" 2>/dev/null || { echo "gdv: not in HEAD: $f" >&2; exit 1; }
+#       vimdiff "$tmp" "$f"
+#     )
+#   done
+# }
 
 # Media
 alias png='xdg-open'
@@ -126,3 +153,10 @@ mntcrypt() {
 alias mr="(make debug -C ~/mgit-tmp/RejuvenApptor/;  ~/mIT/bin/RejuvenApptor-start.sh)"
 alias mg="(make debug -C ~/mgit-tmp/Gatherer/;  ~/mIT/bin/Gatherer-UI.sh; ~/mIT/bin/Gatherer-JobRunner.sh)"
 
+PATH=/home/sasha/bin:$PATH
+
+# https://apple.stackexchange.com/questions/446859/when-pasting-in-terminal-app-00-is-pasted-at-the-start-and-01-at-the-end
+# Prevent 00~[text]01~ when copy + pasting
+echo;printf '\e[?2004l';echo
+
+clear
