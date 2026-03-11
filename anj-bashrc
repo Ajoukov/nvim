@@ -14,6 +14,15 @@ alias l='ls -ltrh'
 # alias vim='nvim'
 # alias vimclear='rm -rf ~/.local/state/nvim/swap/*'
 
+# if filereadable("cscope.out")
+#   set csprg=cscope
+#   set csto=0
+#   set cst
+#   set nocsverb
+#   cs add cscope.out
+#   set csverb
+# endif
+
 # Mongo
 alias mongods='nohup mongod > /dev/null 2>&1 & disown'
 alias mongodk='killall mongod'
@@ -36,6 +45,9 @@ vms() {
 vmk() {
     vm_name=$1
     VBoxManage controlvm "$vm_name" acpipowerbutton
+}
+vml() {
+    VBoxManage list runningvms
 }
 
 # K8s
@@ -92,25 +104,25 @@ function ff-main {
 
 # University account -> ajoukov@cs.stonybrook.edu
 gua() {
-    export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ed25519_cs_sbu -o IdentitiesOnly=yes'
+    export GIT_SSH_COMMAND='ssh -i ~/.ssh/keys/id_ed25519_cs_sbu -o IdentitiesOnly=yes'
     eval $(ssh-agent)
-    ssh-add ~/.ssh/id_ed25519_cs_sbu
+    ssh-add ~/.ssh/keys/id_ed25519_cs_sbu
     git config --global user.name  "Alexander Joukov"
     git config --global user.email "ajoukov@cs.stonybrook.edu"
 }
 # Personal account -> Aapteryx@gmail.com
 guA() {
-    export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_github_personal -o IdentitiesOnly=yes'
+    export GIT_SSH_COMMAND='ssh -i ~/.ssh/keys/id_github_personal -o IdentitiesOnly=yes'
     eval $(ssh-agent)
-    ssh-add ~/.ssh/id_github_personal
+    ssh-add ~/.ssh/keys/id_github_personal
     git config --global user.name  "Alexander Joukov"
     git config --global user.email "Aapteryx@gmail.com"
 }
 # modelizeIT account -> ajoukov@modelizeIT.com
 gum() {
-    # export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ecdsa_github_mit -o IdentitiesOnly=yes'
+    # export GIT_SSH_COMMAND='ssh -i ~/.ssh/keys/id_ecdsa_github_mit -o IdentitiesOnly=yes'
     # eval $(ssh-agent)
-    # ssh-add ~/.ssh/id_ecdsa_github_mit
+    # ssh-add ~/.ssh/keys/id_ecdsa_github_mit
     git config --global user.name  "Alexander Joukov"
     git config --global user.email "ajoukov@modelizeIT.com"
 }
@@ -135,4 +147,19 @@ mntcrypt() {
 
 alias mr="(make debug -C ~/mgit-tmp/RejuvenApptor/;  ~/mIT/bin/RejuvenApptor-start.sh)"
 alias mg="(make debug -C ~/mgit-tmp/Gatherer/;  ~/mIT/bin/Gatherer-UI.sh; ~/mIT/bin/Gatherer-JobRunner.sh)"
+
+# Aapteryx
+alias loga='(cd ~/aapteryx/logs && vim $(ls -Art aapteryx_* | tail -n 1))'
+alias logaf='(cd ~/aapteryx/logs && tail -f $(ls -Art aapteryx_* | tail -n 1))'
+
+function ma() {
+	main=$(ps -ef | grep main.py | grep -v grep | sed -nE 's/ec2-user[[:space:]]+([0-9]+)[[:space:]].*/\1/p')
+	[ -n "$main" ] && kill -9 "$main"
+	(cd ~/aapteryx && nohup python3 main.py &)
+}
+function md() {
+	dashboard_server=$(ps -ef | grep dashboard_server.py | grep -v grep | sed -nE 's/ec2-user[[:space:]]+([0-9]+)[[:space:]].*/\1/p')
+	[ -n "$dashboard_server" ] && kill -9 "$dashboard_server"
+	(cd ~/aapteryx && nohup python3 dashboard_server.py &)
+}
 
